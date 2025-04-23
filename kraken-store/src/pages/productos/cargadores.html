@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kraken Store - Tecnología</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/kraken-store/src/css/style.css">
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -12,12 +12,52 @@
     
 </head>
 <body>
+
+    <!-- navbar -->
+    <nav class="navbar navbar-expand-lg bg-light">
+        <div class="container-fluid">
+          <a class="logo-navbar" href="/kraken-store/"><img src="/kraken-store/assets/images/logo/kraken-logo.jpeg" alt="logo kraken store" class="logo-kraken"></a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/kraken-store/">Inicio</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Productos
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/audifonos.html">Audífonos</a></li>
+                  <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/apple-watch.html">Apple Watches</a></li>
+                  <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/proyectores.html">Proyectores</a></li>
+                  <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/magsafe.html">MagSafe</a></li>
+                  <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/cargadores.html">Cargadores</a></li>
+                  <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/cargadores-qi2.html">Cargadores MagSafe 3 en 1 Certificacion Qi2</a></li>
+                  <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/accesorios.html">Accesorios y Cargadores</a></li>
+                </ul>
+              <li class="nav-item">
+                <a class="nav-link" href="/kraken-store/src/pages/contacto.html">Contacto</a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="/kraken-store/src/pages/admin/login.html">Administración</a>
+              </li>
+              
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
     <div class="container">
         <h1 class="text-center my-4">Cargadores</h1>
         
         <div class="row align-items-center mb-5">
             <div class="col-md-6 text-center">
-                <img src="./20wc.jpeg" class="audifonos-uno" alt="Cubo de 20W C">
+                <img src="/kraken-store/assets/images/cargadores/20wc.jpeg" class="audifonos-uno" alt="Cubo de 20W C">
             </div>
             <div class="col-md-6">
                 <h2>Cubo de 20W C</h2>
@@ -28,7 +68,7 @@
 
         <div class="row align-items-center mb-5">
             <div class="col-md-6 order-md-2 text-center">
-                <img src="./usb5w.jpg" class="audifonos-uno" alt="Cubo de 5W USB">
+                <img src="/kraken-store/assets/images/cargadores/usb5w.jpg" class="audifonos-uno" alt="Cubo de 5W USB">
             </div>
             <div class="col-md-6 order-md-1">
                 <h2>Cubo de 5W USB</h2>
@@ -39,7 +79,7 @@
 
         <div class="row align-items-center mb-5">
             <div class="col-md-6 text-center">
-                <img src="./c-lightning.jpeg" class="audifonos-uno" alt="Cable C a Lightning">
+                <img src="/kraken-store/assets/images/cargadores/c-lightning.jpeg" class="audifonos-uno" alt="Cable C a Lightning">
             </div>
             <div class="col-md-6">
                 <h2>Cable C a Lightning</h2>
