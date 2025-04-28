@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<?php
+// Incluir el archivo de integración al principio
+require_once '../../../src/database/integracion.php';
+?>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <link rel="stylesheet" href="/src/css/style.css"> 
+     <!-- Bootstrap -->
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+ 
+      <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Fuente -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    
+</head>
+<body>
+
+<!-- navbar -->
+<nav class="navbar navbar-expand-lg bg-light">
+    <div class="container-fluid">
+      <a class="logo-navbar" href="/kraken-store/"><img src="/assets/images/logo/kraken-logo.jpeg" alt="logo kraken store" class="logo-kraken" height=80px></a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/kraken-store/">Inicio</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Productos
+            </a>
+            <ul class="dropdown-menu">
+              <?php echo generarMenuCategorias(); ?>
+              <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/audifonos.php">Audífonos</a></li>
+              <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/apple-watch.php">Apple Watches</a></li>
+              <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/proyectores.php">Proyectores</a></li>
+              <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/magsafe.php">MagSafe</a></li>
+              <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/cargadores.php">Cargadores</a></li>
+              <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/cargadores-qi2.php">Cargadores MagSafe 3 en 1 Certificacion Qi2</a></li>
+              <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/accesorios.php">Accesorios y Cargadores</a></li>
+            </ul>
+          <li class="nav-item">
+          <a class="nav-link active" href="/src/pages/contacto/contacto.php">Contacto</a>
+          </li>
+          
+          <li class="nav-item">
+          <a class="nav-link" href="/src/database/panel_admin.php">Administración</a>
+          </li>
+          
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+    <header>
+        <br>
+        <center>
+            <h1>Contacto</h1>
+        </center>
+       
+    </header>
+
+    <br>
+    <section class="contacto">
+        <div class="container">
+            <div class="row">
+                <!-- Información de contacto -->
+                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                    <div class="info-contacto">
+                        <h3>Instagram</h3>
+                        <p>
+                            <a href="https://www.instagram.com/krakenstoremx" target="_blank" style="text-decoration: none; color: inherit;">
+                                <i class="bi bi-instagram" style="font-size: 24px;"></i> Kraken Store
+                            </a>
+                        </p>
+                        <h3>Teléfono</h3>
+                        <h3>2291388958</h3>
+                    </div>
+                </div>
+    
+                <!-- Formulario de contacto -->
+                <div class="col-md-6 d-flex align-items-center justify-content-center">
+                    <div class="formulario-contacto">
+                        <h3>Formulario de Contacto</h3>
+                        <form action="enviar.php" method="POST">
+                            <div class="mb-3">
+                                <label for="correo" class="form-label">Correo Electrónico:</label>
+                                <input type="email" id="correo" name="correo" class="form-control" placeholder="Ingresa tu correo" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="comentario" class="form-label">Comentario:</label>
+                                <textarea id="comentario" name="comentario" class="form-control" rows="5" placeholder="Escribe tu comentario aquí" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Enviar</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-light text-center text-lg-start mt-5">
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.05);">
+            © 2025 Kraken Store. Todos los derechos reservados.
+        </div>
+    </footer>
+</body>
+</html>
