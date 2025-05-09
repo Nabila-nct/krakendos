@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button class="w-100 btn btn-lg btn-primary" type="submit">Iniciar Sesión</button>
             
             <p class="mt-3">
-                <a href="main.html">Volver a la tienda</a>
+                <a href="/kraken-store/index.php">Volver a la tienda</a>
             </p>
             
             <p class="mt-5 mb-3 text-muted">&copy; 2025 Kraken Store</p>

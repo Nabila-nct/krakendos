@@ -158,7 +158,6 @@ body.login-page {
 
 /* Estilos específicos para el panel de administrador */
 .admin-panel {
-    display: none;
     width: 90%;
     max-width: 1200px;
     min-height: 80vh;

@@ -140,3 +140,75 @@ function filtrarProductosPorCategoria($id_categoria) {
     
     return consultarDB($query, [$id_categoria]);
 }
+
+/**
+ * Función para buscar productos con criterios avanzados
+ * 
+ * @param array $filtros Array asociativo con los criterios de búsqueda
+ * @return array Lista de productos que cumplen los criterios
+ */
+function buscarProductosAvanzado($filtros = []) {
+    // Iniciar la consulta base
+    $query = "SELECT p.*, c.nombre as nombre_categoria, pr.nombre as nombre_proveedor 
+              FROM producto p 
+              LEFT JOIN categoria c ON p.id_categoria = c.id_categoria 
+              LEFT JOIN proveedor pr ON p.id_proveedor = pr.id_proveedor 
+              WHERE 1=1";
+    
+    $params = [];
+    
+    // Filtrar por término de búsqueda (nombre o descripción)
+    if (!empty($filtros['search_term'])) {
+        $termino = "%" . $filtros['search_term'] . "%";
+        $query .= " AND (p.nombre ILIKE ? OR p.descripcion ILIKE ?)";
+        $params[] = $termino;
+        $params[] = $termino;
+    }
+    
+    // Filtrar por categoría
+    if (!empty($filtros['id_categoria'])) {
+        $query .= " AND p.id_categoria = ?";
+        $params[] = $filtros['id_categoria'];
+    }
+    
+    // Filtrar por proveedor
+    if (!empty($filtros['id_proveedor'])) {
+        $query .= " AND p.id_proveedor = ?";
+        $params[] = $filtros['id_proveedor'];
+    }
+    
+    // Filtrar por precio mínimo
+    if (isset($filtros['precio_min']) && $filtros['precio_min'] !== '') {
+        $query .= " AND p.precio >= ?";
+        $params[] = $filtros['precio_min'];
+    }
+    
+    // Filtrar por precio máximo
+    if (isset($filtros['precio_max']) && $filtros['precio_max'] !== '') {
+        $query .= " AND p.precio <= ?";
+        $params[] = $filtros['precio_max'];
+    }
+    
+    // Filtrar por existencia mínima
+    if (isset($filtros['existencia_min']) && $filtros['existencia_min'] !== '') {
+        $query .= " AND p.existencia >= ?";
+        $params[] = $filtros['existencia_min'];
+    }
+    
+    // Filtrar por existencia máxima
+    if (isset($filtros['existencia_max']) && $filtros['existencia_max'] !== '') {
+        $query .= " AND p.existencia <= ?";
+        $params[] = $filtros['existencia_max'];
+    }
+    
+    // Filtrar productos con bajo stock
+    if (isset($filtros['low_stock']) && $filtros['low_stock'] == '1') {
+        $query .= " AND p.existencia < 10";
+    }
+    
+    // Ordenar por nombre por defecto
+    $query .= " ORDER BY p.nombre";
+    
+    // Ejecutar consulta
+    return consultarDB($query, $params);
+}

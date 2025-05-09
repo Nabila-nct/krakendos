@@ -9,6 +9,7 @@
 // Iniciar sesión
 session_start();
 
+$base_url = '/kraken-store';
 // Definir ruta base para incluir archivos
 $base_path = __DIR__;
 

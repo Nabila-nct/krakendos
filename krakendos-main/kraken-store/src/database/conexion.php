@@ -7,9 +7,8 @@
 $host = 'localhost';
 $port = '5432';
 $dbname = 'kraken_store';
-$user = 'kraken_user';     // Cambia esto por tu usuario de PostgreSQL
-$password = 'kraken_2025'; // Cambia esto por tu contraseña de PostgreSQL
-
+$user = 'kraken_user';     
+$password = 'kraken_2025'; 
 // Cadena de conexión
 $dsn = "pgsql:host=$host;port=$port;dbname=$dbname;user=$user;password=$password";
 

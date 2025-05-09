@@ -8,7 +8,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kraken Store - Audífonos</title>
-    <link rel="stylesheet" href="/src/css/style.css">
+    <link rel="stylesheet" href="/kraken-store/src/css/style.css">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
@@ -20,8 +20,8 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
     <!-- navbar -->
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-          <a class="logo-navbar" href="/kraken-store/"><img src="/assets/images/logo/kraken-logo.jpeg" alt="logo kraken store" class="logo-kraken"></a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <a class="logo-navbar" href="/"><img src="/kraken-store/assets/images/logo/kraken-logo.jpeg" alt="logo kraken store" class="logo-kraken"></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNavDropdown">
@@ -34,14 +34,14 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
                   Productos
                 </a>
                 <ul class="dropdown-menu">
-                  <li><a class="dropdown-item active" href="/src/pages/productos/audifonos.php">Audífonos</a></li>
-                  <li><a class="dropdown-item" href="/src/pages/productos/apple-watch.php">Apple Watches</a></li>
-                  <li><a class="dropdown-item" href="/src/pages/productos/proyectores.php">Proyectores</a></li>
-                  <li><a class="dropdown-item" href="/src/pages/productos/magsafe.php">MagSafe</a></li>
-                  <li><a class="dropdown-item" href="/src/pages/productos/cargadores.php">Cargadores</a></li>
-                  <li><a class="dropdown-item" href="/src/pages/productos/cargadores-qi2.php">Cargadores MagSafe 3 en 1 Certificacion Qi2</a></li>
-                  <li><a class="dropdown-item" href="/src/pages/productos/accesorios.php">Accesorios y Cargadores</a></li>
-                </ul>
+                <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/audifonos.php">Audífonos</a></li>
+            <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/apple-watch.php">Apple Watches</a></li>
+            <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/proyectores.php">Proyectores</a></li>
+            <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/magsafe.php">MagSafe</a></li>
+            <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/cargadores.php">Cargadores</a></li>
+            <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/cargadores-qi2.php">Cargadores MagSafe 3 en 1 Certificacion Qi2</a></li>
+            <li><a class="dropdown-item" href="/kraken-store/src/pages/productos/accesorios.php">Accesorios y Cargadores</a></li>
+          </ul>
               <li class="nav-item">
               <a class="nav-link" href="/kraken-store/src/pages/contacto/contacto.php">Contacto</a>
               </li>
@@ -61,7 +61,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
         
         <div class="row align-items-center mb-5">
             <div class="col-md-6 text-center">
-                <img src="/assets/images/audifonos/airpods1gen.jpg" class="audifonos-uno" alt="AirPods Primera Generación">
+                <img src="/kraken-store/assets/images/audifonos/airpods1gen.jpg" class="audifonos-uno" alt="AirPods Primera Generación">
             </div>
             <div class="col-md-6">
                 <h2>AirPods Pro 1G OEM</h2>
@@ -73,7 +73,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
 
         <div class="row align-items-center mb-5">
             <div class="col-md-6 order-md-2 text-center">
-                <img src="/assets/images/audifonos/airpods2gen.jpeg" class="audifonos-uno-dos" alt="AirPods Segunda Generación">
+                <img src="/kraken-store/assets/images/audifonos/airpods2gen.jpeg" class="audifonos-uno-dos" alt="AirPods Segunda Generación">
             </div>
             <div class="col-md-6 order-md-1">
                 <h2>AirPods Pro 2G OEM</h2>
@@ -89,7 +89,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
         
         <div class="row align-items-center mb-5">
             <div class="col-md-6 text-center">
-                <img id="airpods3gen" src="/assets/images/audifonos/airpods3gen.jpg" class="audifonos-uno" alt="AirPods Tercera Generación">
+                <img id="airpods3gen" src="/kraken-store/assets/images/audifonos/airpods3gen.jpg" class="audifonos-uno" alt="AirPods Tercera Generación">
             </div>
             <div class="col-md-6">
                 <h2>AirPods Pro 3G OEM</h2>
@@ -101,7 +101,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
 
         <div class="row align-items-center mb-5">
             <div class="col-md-6 order-md-2 text-center">
-                <img src="/assets/images/audifonos/airpods4gen.jpg" class="audifonos-uno-dos" alt="AirPods Segunda Generación">
+                <img src="/kraken-store/assets/images/audifonos/airpods4gen.jpg" class="audifonos-uno-dos" alt="AirPods Segunda Generación">
             </div>
             <div class="col-md-6 order-md-1">
                 <h2>AirPods 4G ANC OEM</h2>
@@ -113,7 +113,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
 
         <div class="row align-items-center mb-5">
             <div class="col-md-6 text-center">
-                <img src="/assets/images/audifonos/earpods.jpeg" class="audifonos-uno-dos" alt="EarPods OEM">
+                <img src="/kraken-store/assets/images/audifonos/earpods.jpeg" class="audifonos-uno-dos" alt="EarPods OEM">
             </div>
             <div class="col-md-6">
                 <h2>EarPods OEM</h2>
@@ -127,7 +127,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
 
         <div class="row align-items-center mb-5">
             <div class="col-md-6 order-md-2 text-center">
-                <img src="/assets/images/audifonos/airpodsmax.webp" class="audifonos-uno-dos" alt="AirPods Max">
+                <img src="/kraken-store/assets/images/audifonos/airpodsmax.webp" class="audifonos-uno-dos" alt="AirPods Max">
             </div>
             <div class="col-md-6 order-md-1">
                 <h2>AirPods Max</h2>
@@ -142,7 +142,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
 
         <div class="row align-items-center mb-5">
             <div class="col-md-6 text-center">
-                <img src="/assets/images/audifonos/haylou.jpg" class="audifonos-uno-dos" alt="Haylou s30">
+                <img src="/kraken-store/assets/images/audifonos/haylou.jpg" class="audifonos-uno-dos" alt="Haylou s30">
             </div>
             <div class="col-md-6">
                 <h2>Haylou s30</h2>
@@ -153,7 +153,7 @@ require_once '/Users/nabilagunesvela/Desktop/krakendos-main/kraken-store/src/dat
 
         <div class="row align-items-center mb-5">
             <div class="col-md-6 order-md-2 text-center">
-                <img id="airpods2gen" src="/assets/images/audifonos/airpods2gen.png" class="audifonos-uno-dos" alt="AirPods 2G OEM">
+                <img id="airpods2gen" src="/kraken-store/assets/images/audifonos/airpods2gen.png" class="audifonos-uno-dos" alt="AirPods 2G OEM">
             </div>
             <div class="col-md-6 order-md-1">
                 <h2>AirPods 2G OEM</h2>

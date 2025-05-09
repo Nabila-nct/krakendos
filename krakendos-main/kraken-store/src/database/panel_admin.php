@@ -8,7 +8,7 @@ session_start();
 
 // Incluir archivo de conexión y funciones
 require_once __DIR__ . '/conexion.php';
-require_once __DIR__ . '/productos.php';
+require_once __DIR__ . '/admin_productos.php';
 
 
 // Verificar si el usuario está autenticado
@@ -250,7 +250,7 @@ if ($seccion === 'proveedores' && $accion === 'listar') {
                             <?php echo htmlspecialchars($nombre_empleado); ?> (<?php echo htmlspecialchars($puesto); ?>)
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="/src/index.php">Ver tienda</a></li>
+                            <li><a class="dropdown-item" href="/kraken-store/index.php">Ver tienda</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" href="logout.php">Cerrar sesión</a></li>
                         </ul>
@@ -305,17 +305,8 @@ if ($seccion === 'proveedores' && $accion === 'listar') {
                         </div>
                     <?php endif; ?>
                 </div>
-            </main>
-        </div>
-    </div>
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
-
-                    <!-- Contenido según la sección -->
-                    <?php if ($seccion === 'productos'): ?>
+ <!-- Contenido según la sección -->
+ <?php if ($seccion === 'productos'): ?>
                         <div class="d-flex justify-content-between align-items-center mb-4">
                             <h2>Gestión de Productos</h2>
                             <?php if ($accion === 'listar'): ?>
@@ -333,6 +324,7 @@ if ($seccion === 'proveedores' && $accion === 'listar') {
                             <!-- Lista de productos -->
                             <div class="card">
                                 <div class="card-body">
+                                    
                                     <div class="table-responsive">
                                         <table class="table table-striped table-hover">
                                             <thead>
@@ -466,6 +458,103 @@ if ($seccion === 'proveedores' && $accion === 'listar') {
                         
                     <?php elseif ($seccion === 'categorias'): ?>
                         <div class="d-flex justify-content-between align-items-center mb-4">
+                            <!-- Barra de búsqueda avanzada -->
+<div class="card mb-4">
+    <div class="card-header bg-light">
+        <div class="d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Búsqueda Avanzada</h5>
+            <button class="btn btn-sm btn-outline-secondary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="false">
+                <i class="bi bi-chevron-down"></i>
+            </button>
+        </div>
+    </div>
+    <div class="collapse" id="collapseSearch">
+        <div class="card-body">
+            <form id="searchForm" method="get" action="panel_admin.php">
+                <input type="hidden" name="seccion" value="productos">
+                
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="search_term" class="form-label">Buscar por nombre/descripción</label>
+                        <input type="text" class="form-control" id="search_term" name="search_term" placeholder="Nombre o descripción" value="<?php echo isset($_GET['search_term']) ? htmlspecialchars($_GET['search_term']) : ''; ?>">
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="id_categoria" class="form-label">Categoría</label>
+                        <select class="form-select" id="id_categoria" name="id_categoria">
+                            <option value="">Todas las categorías</option>
+                            <?php foreach ($categorias as $categoria): ?>
+                                <option value="<?php echo $categoria['id_categoria']; ?>" <?php echo (isset($_GET['id_categoria']) && $_GET['id_categoria'] == $categoria['id_categoria']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($categoria['nombre']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <label for="id_proveedor" class="form-label">Proveedor</label>
+                        <select class="form-select" id="id_proveedor" name="id_proveedor">
+                            <option value="">Todos los proveedores</option>
+                            <?php foreach ($proveedores as $proveedor): ?>
+                                <option value="<?php echo $proveedor['id_proveedor']; ?>" <?php echo (isset($_GET['id_proveedor']) && $_GET['id_proveedor'] == $proveedor['id_proveedor']) ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($proveedor['nombre']); ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <label for="precio_min" class="form-label">Precio mínimo</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="precio_min" name="precio_min" min="0" step="0.01" value="<?php echo isset($_GET['precio_min']) ? htmlspecialchars($_GET['precio_min']) : ''; ?>">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="precio_max" class="form-label">Precio máximo</label>
+                        <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" id="precio_max" name="precio_max" min="0" step="0.01" value="<?php echo isset($_GET['precio_max']) ? htmlspecialchars($_GET['precio_max']) : ''; ?>">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="existencia_min" class="form-label">Existencia mínima</label>
+                        <input type="number" class="form-control" id="existencia_min" name="existencia_min" min="0" value="<?php echo isset($_GET['existencia_min']) ? htmlspecialchars($_GET['existencia_min']) : ''; ?>">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="existencia_max" class="form-label">Existencia máxima</label>
+                        <input type="number" class="form-control" id="existencia_max" name="existencia_max" min="0" value="<?php echo isset($_GET['existencia_max']) ? htmlspecialchars($_GET['existencia_max']) : ''; ?>">
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="low_stock" name="low_stock" value="1" <?php echo (isset($_GET['low_stock']) && $_GET['low_stock'] == '1') ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="low_stock">
+                                Mostrar solo productos con bajo stock (<10 unidades)
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 text-end">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-search"></i> Buscar
+                        </button>
+                        <a href="panel_admin.php?seccion=productos" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Limpiar filtros
+                        </a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
                             <h2>Gestión de Categorías</h2>
                         </div>
                         
@@ -613,3 +702,126 @@ if ($seccion === 'proveedores' && $accion === 'listar') {
                         <p>En desarrollo...</p>
                         
                     <?php endif; ?>
+            </main>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Comprobar si hay parámetros de búsqueda activos y mostrar el panel
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('search_term') || urlParams.has('id_categoria') || urlParams.has('id_proveedor') || 
+        urlParams.has('precio_min') || urlParams.has('precio_max') || urlParams.has('existencia_min') || 
+        urlParams.has('existencia_max') || urlParams.has('low_stock')) {
+        
+        // Mostrar el panel de búsqueda si hay filtros activos
+        const collapseSearch = document.getElementById('collapseSearch');
+        if (collapseSearch) {
+            const bsCollapse = new bootstrap.Collapse(collapseSearch, {
+                toggle: true
+            });
+        }
+    }
+
+    // Función para limpiar todos los filtros
+    const clearFiltersBtn = document.querySelector('a.btn-secondary');
+    if (clearFiltersBtn) {
+        clearFiltersBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Limpiar todos los campos del formulario
+            document.getElementById('searchForm').reset();
+            
+            // Redirigir a la página sin parámetros
+            window.location.href = 'panel_admin.php?seccion=productos';
+        });
+    }
+
+    // Mejora para filtrado rápido en la tabla de productos
+    const searchTableInput = document.getElementById('searchTable');
+    if (searchTableInput) {
+        searchTableInput.addEventListener('keyup', function() {
+            const searchTerm = this.value.toLowerCase();
+            const table = document.querySelector('.inventory-table');
+            const rows = table.querySelectorAll('tbody tr');
+            
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    row.style.display = '';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        });
+    }
+
+    // Mejora para validar rangos de precios y existencias
+    const form = document.getElementById('searchForm');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const precioMin = parseFloat(document.getElementById('precio_min').value) || 0;
+            const precioMax = parseFloat(document.getElementById('precio_max').value) || Infinity;
+            const existenciaMin = parseInt(document.getElementById('existencia_min').value) || 0;
+            const existenciaMax = parseInt(document.getElementById('existencia_max').value) || Infinity;
+            
+            // Validar que min sea menor que max
+            if (precioMin > precioMax && precioMax > 0) {
+                e.preventDefault();
+                alert('El precio mínimo no puede ser mayor que el precio máximo.');
+                return false;
+            }
+            
+            if (existenciaMin > existenciaMax && existenciaMax > 0) {
+                e.preventDefault();
+                alert('La existencia mínima no puede ser mayor que la existencia máxima.');
+                return false;
+            }
+        });
+    }
+});
+</script>
+</body>
+</html>
+
+                   
+<?php
+// Si estamos en la sección de productos, obtener lista de productos
+$productos = [];
+if ($seccion === 'productos' && $accion === 'listar') {
+    // Reemplazar esta parte para incluir la búsqueda avanzada
+    if (isset($_GET['search_term']) || isset($_GET['id_categoria']) || isset($_GET['id_proveedor']) || 
+        isset($_GET['precio_min']) || isset($_GET['precio_max']) || isset($_GET['existencia_min']) || 
+        isset($_GET['existencia_max']) || isset($_GET['low_stock'])) {
+        
+        // Extraer los filtros de búsqueda
+        $filtros = [
+            'search_term' => isset($_GET['search_term']) ? $_GET['search_term'] : null,
+            'id_categoria' => isset($_GET['id_categoria']) ? $_GET['id_categoria'] : null,
+            'id_proveedor' => isset($_GET['id_proveedor']) ? $_GET['id_proveedor'] : null,
+            'precio_min' => isset($_GET['precio_min']) ? $_GET['precio_min'] : null,
+            'precio_max' => isset($_GET['precio_max']) ? $_GET['precio_max'] : null,
+            'existencia_min' => isset($_GET['existencia_min']) ? $_GET['existencia_min'] : null,
+            'existencia_max' => isset($_GET['existencia_max']) ? $_GET['existencia_max'] : null,
+            'low_stock' => isset($_GET['low_stock']) ? $_GET['low_stock'] : null
+        ];
+        
+        // Buscar productos con los filtros proporcionados
+        $productos = buscarProductosAvanzado($filtros);
+        
+        // Mensaje de resultados para mostrar al usuario
+        $total_resultados = count($productos);
+        if ($total_resultados > 0) {
+            $_SESSION['mensaje'] = "Se encontraron $total_resultados productos que coinciden con los criterios de búsqueda.";
+            $_SESSION['tipo_mensaje'] = "success";
+        } else {
+            $_SESSION['mensaje'] = "No se encontraron productos que coincidan con los criterios de búsqueda.";
+            $_SESSION['tipo_mensaje'] = "warning";
+        }
+    } else {
+        // Si no hay filtros de búsqueda, mostrar todos los productos
+        $productos = obtenerProductos();
+    }
+}
