@@ -289,3 +289,185 @@ function calcularTotalCarrito() {
 function vaciarCarrito() {
     $_SESSION['carrito'] = [];
 }
+
+/**
+ * Función para búsqueda avanzada de productos con múltiples filtros
+ * 
+ * @param array $filtros Array con los filtros de búsqueda
+ * @return array Lista de productos que coinciden con los filtros
+ */
+function buscarProductosAvanzado($filtros) {
+    // Inicializar la consulta base
+    $query = "SELECT p.*, c.nombre as nombre_categoria, pr.nombre as nombre_proveedor 
+              FROM producto p 
+              LEFT JOIN categoria c ON p.id_categoria = c.id_categoria 
+              LEFT JOIN proveedor pr ON p.id_proveedor = pr.id_proveedor 
+              WHERE 1=1";
+    
+    $params = [];
+    
+    // Agregar filtros según los parámetros proporcionados
+    
+    // Filtro por término de búsqueda
+    if (!empty($filtros['search_term'])) {
+        $query .= " AND (p.nombre ILIKE ? OR p.descripcion ILIKE ?)";
+        $termino = '%' . $filtros['search_term'] . '%';
+        $params[] = $termino;
+        $params[] = $termino;
+    }
+    
+    // Filtro por categoría
+    if (!empty($filtros['id_categoria'])) {
+        $query .= " AND p.id_categoria = ?";
+        $params[] = $filtros['id_categoria'];
+    }
+    
+    // Filtro por proveedor
+    if (!empty($filtros['id_proveedor'])) {
+        $query .= " AND p.id_proveedor = ?";
+        $params[] = $filtros['id_proveedor'];
+    }
+    
+    // Filtro por precio mínimo
+    if (!empty($filtros['precio_min'])) {
+        $query .= " AND p.precio >= ?";
+        $params[] = $filtros['precio_min'];
+    }
+    
+    // Filtro por precio máximo
+    if (!empty($filtros['precio_max'])) {
+        $query .= " AND p.precio <= ?";
+        $params[] = $filtros['precio_max'];
+    }
+    
+    // Filtro por existencia mínima
+    if (!empty($filtros['existencia_min'])) {
+        $query .= " AND p.existencia >= ?";
+        $params[] = $filtros['existencia_min'];
+    }
+    
+    // Filtro por existencia máxima
+    if (!empty($filtros['existencia_max'])) {
+        $query .= " AND p.existencia <= ?";
+        $params[] = $filtros['existencia_max'];
+    }
+    
+    // Filtro para bajo stock
+    if (!empty($filtros['low_stock']) && $filtros['low_stock'] == '1') {
+        $query .= " AND p.existencia < 10";
+    }
+    
+    // Ordenar por nombre
+    $query .= " ORDER BY p.nombre";
+    
+    return consultarDB($query, $params);
+}
+
+/**
+ * Función para búsqueda rápida de productos (simplificada)
+ * 
+ * @param string $termino Término de búsqueda
+ * @return array Lista de productos
+ */
+function buscarProductosRapido($termino) {
+    if (empty($termino)) {
+        return [];
+    }
+    
+    $filtros = [
+        'search_term' => $termino
+    ];
+    
+    return buscarProductosAvanzado($filtros);
+}
+
+/**
+ * Función auxiliar para validar los filtros de búsqueda
+ * 
+ * @param array $filtros Array con los filtros a validar
+ * @return array Array con los filtros validados y limpiados
+ */
+function validarFiltrosBusqueda($filtros) {
+    $filtrosValidados = [];
+    
+    // Validar término de búsqueda
+    if (isset($filtros['search_term']) && !empty(trim($filtros['search_term']))) {
+        $filtrosValidados['search_term'] = trim($filtros['search_term']);
+    }
+    
+    // Validar ID de categoría
+    if (isset($filtros['id_categoria']) && is_numeric($filtros['id_categoria']) && $filtros['id_categoria'] > 0) {
+        $filtrosValidados['id_categoria'] = intval($filtros['id_categoria']);
+    }
+    
+    // Validar ID de proveedor
+    if (isset($filtros['id_proveedor']) && is_numeric($filtros['id_proveedor']) && $filtros['id_proveedor'] > 0) {
+        $filtrosValidados['id_proveedor'] = intval($filtros['id_proveedor']);
+    }
+    
+    // Validar precios
+    if (isset($filtros['precio_min']) && is_numeric($filtros['precio_min']) && $filtros['precio_min'] >= 0) {
+        $filtrosValidados['precio_min'] = floatval($filtros['precio_min']);
+    }
+    
+    if (isset($filtros['precio_max']) && is_numeric($filtros['precio_max']) && $filtros['precio_max'] >= 0) {
+        $filtrosValidados['precio_max'] = floatval($filtros['precio_max']);
+    }
+    
+    // Validar existencias
+    if (isset($filtros['existencia_min']) && is_numeric($filtros['existencia_min']) && $filtros['existencia_min'] >= 0) {
+        $filtrosValidados['existencia_min'] = intval($filtros['existencia_min']);
+    }
+    
+    if (isset($filtros['existencia_max']) && is_numeric($filtros['existencia_max']) && $filtros['existencia_max'] >= 0) {
+        $filtrosValidados['existencia_max'] = intval($filtros['existencia_max']);
+    }
+    
+    // Validar low stock
+    if (isset($filtros['low_stock']) && $filtros['low_stock'] == '1') {
+        $filtrosValidados['low_stock'] = '1';
+    }
+    
+    return $filtrosValidados;
+}
+
+/**
+ * Función para obtener estadísticas de búsqueda de productos
+ * 
+ * @param array $productos Array de productos encontrados
+ * @return array Array con estadísticas de la búsqueda
+ */
+function obtenerEstadisticasBusqueda($productos) {
+    $stats = [
+        'total' => count($productos),
+        'precio_promedio' => 0,
+        'stock_total' => 0,
+        'productos_sin_stock' => 0,
+        'categorias_encontradas' => []
+    ];
+    
+    if (empty($productos)) {
+        return $stats;
+    }
+    
+    $suma_precios = 0;
+    $categorias = [];
+    
+    foreach ($productos as $producto) {
+        $suma_precios += $producto['precio'];
+        $stats['stock_total'] += $producto['existencia'];
+        
+        if ($producto['existencia'] == 0) {
+            $stats['productos_sin_stock']++;
+        }
+        
+        if (!empty($producto['nombre_categoria'])) {
+            $categorias[$producto['nombre_categoria']] = ($categorias[$producto['nombre_categoria']] ?? 0) + 1;
+        }
+    }
+    
+    $stats['precio_promedio'] = $suma_precios / count($productos);
+    $stats['categorias_encontradas'] = $categorias;
+    
+    return $stats;
+}
